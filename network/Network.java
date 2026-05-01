@@ -1,3 +1,11 @@
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 public class Network {
     Neuron first = new Neuron();
     Neuron second = new Neuron();
@@ -131,31 +139,36 @@ public class Network {
 
 
 
-public static void main(String [] args){
-Network network = new Network();
-Double prediction = network.predict(2.2, 30.5);
-System.out.println("prediction: " + prediction);
-}
-
-/* 
 public static void main(String[] args) {   
- 	ArrayList<double[]> data = new ArrayList<double[]>();
-    	data.add(new double[]{115/365, 66/150});
-    	data.add(new double[]{20/365, 32/150});
-    	data.add(new double[]{325/365, 29/150});
-      	data.add(new double[]{200/365,88/150});
-    	ArrayList<Double> answers = new ArrayList<Double>();
-    	answers.addAll(Arrays.asList(0.0,1.0,1.0,0.0));  
+ 	ArrayList<double[]> fertilityAndInternet = new ArrayList<double[]>();
 
+        List<List<String>> myCsv = readCSV("Countries and Territories.csv");
+    	ArrayList<Double> answers = new ArrayList<Double>();
+        for (int i = 1; i < myCsv.size(); i++){
+            
+                if(Double.parseDouble(myCsv.get(i).get(9)) >= 50000.0){
+                    answers.add(1.0);
+                }
+                else{
+                    answers.add(0.0);
+                }
+                fertilityAndInternet.add(new double[]{Double.parseDouble(myCsv.get(i).get(7))/7.0,Double.parseDouble(myCsv.get(i).get(10))/100.0});
+
+            
+        }
+        
+
+
+        // PREDICT IF GDP PER CAPITA WILL BE OVER 50,000
     	Network network = new Network();
-    	network.train(data, answers);
+    	network.train(fertilityAndInternet, answers);
 
     	//Try making some predictions:
-    	System.out.println("Should give no "+network.predict(167/365, 73/150));
-    	System.out.println("Should give yes "+network.predict(30/365, 25/150));
+    	System.out.println("Should give no "+network.predict(5.0/7.0, 30.0/100.0));
+    	System.out.println("Should give yes "+network.predict(1.5/7.0, 99.0/100.0));
 }
 
-*/
+
     
 
 }
